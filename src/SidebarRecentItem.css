@@ -1,0 +1,21 @@
+.sidebar__recentItem {
+  display: flex;
+  font-size: 13px;
+  font-weight: bolder;
+  color: gray;
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.sidebar__recentItem:hover {
+  color: black;
+  cursor: pointer;
+  background-color: whitesmoke;
+  border-radius: 8px;
+}
+
+.sidebar__hash {
+  margin-left: 5px;
+  margin-right: 5px;
+}

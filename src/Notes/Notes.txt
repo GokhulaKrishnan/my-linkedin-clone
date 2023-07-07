@@ -1,0 +1,143 @@
+Here Im going to take notes on How to create LinkedIn cloning. Excited to start!😊
+
+NEW EXTENSION: es7 Redux [Used for expanding the abbreviation.]
+- rfce for new component setup.
+
+HEADER
+First we are going to Build the Header.
+For that we are creating a new file called Header.
+Header has two sections: Left section and right section.
+Left section contains 
+- Image logo use Material UI.
+
+
+HEADEROPTION:
+
+- headeroption is a compoent used to render the icons with names on the right part of the header.
+- It gets the required props.
+- Material UI contains a Avatar with which we can able to provide profile image with the src attribute.
+
+SIDEBAR:
+
+-Side bar is to build the side section of the page.
+- divided into two: sidebar1 and sidebar2.
+
+FEED BODY:
+
+- Should see what is overflow-wrap: anywhere;
+
+FEED:
+
+- We are going to use FIREBASE in this.
+- Go to firebase project and go to settings.
+- In settings there will be config.
+- Copy and paste it in vs firebase.js
+- open terminal and type npm add firebase
+- Then import firebase from 'firebase'
+- Add this line const firebaseApp = firebase.initializeApp(firebaseConfig);
+- // Getting firestore and storing it
+const db = firebaseApp.firestore();
+- // To get authentication
+const auth = firebase.auth();
+
+- // As we need of it separately we are exporting it like this
+export { db, auth };
+
+- now we are going to use it in FEED
+
+
+FIREBASE USAGE STEP BY STEP:
+
+- Create a separate js file that contains firebase setup. You can check this in firebase.js file.
+
+- Inside that js file we will setup, we have to import certain things that was not mentioned by him and it was actually a difficult task to overcome that error. I used stack overflow.
+
+- From firebase settings, i copied and pastes the config and stored it in firebaseConfig
+
+- The rest of the things you see in the firebase.js is the same thing that will be done in all other firebase setup ig.
+
+- The I went to FEED.js where I captured the user input.
+
+- Here also i imported all the necessary libraries.
+
+- I also imported db from firebase.js file.
+
+- We are creating two states. One for the posts that is the under this thing only we will store the datas and another state is for capturing inputs from input field.
+
+- Using useEffect hook we are getting the snapshot from the database i.e the datas from the database only when refreshed.
+
+- We then create sendPost which will get invoked everytime when we submit the input.
+
+- In that we are sending the captured data to posts and we add the necessary details to be added in the firebase.
+
+- timestamp is used to synchronize the time from various part of the world.
+
+- After that in the return statement we have to display the posts.
+
+- For that we are mapping the latest snapshot of posts to get everysingle posts and sending the datas to the POSTS component to render it in the feed part.
+
+- Here there is a little bug that is the order of the posts are random and we are going to solve it.
+
+- How we are going to solve this is by adding ORDERBY in the part where we get the snapshot of the database.
+
+- In that between collection and onSnapshot add the ORDERBY.
+
+
+- AUTHENTICATION 
+
+- Now we are going to do the authentication part.
+
+- First when user tries to login it will collect the informations.
+
+- Then we use redux to pull in the datas whenever required at the desired place.
+
+
+//////
+
+counterAPI.js
+
+// A mock function to mimic making an async request for data
+export function fetchCount(amount = 1) {
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ data: amount }), 500)
+  );
+}
+
+
+counterSlice.spec.js
+
+import counterReducer, {
+  increment,
+  decrement,
+  incrementByAmount,
+} from './counterSlice';
+
+describe('counter reducer', () => {
+  const initialState = {
+    value: 3,
+    status: 'idle',
+  };
+  it('should handle initial state', () => {
+    expect(counterReducer(undefined, { type: 'unknown' })).toEqual({
+      value: 0,
+      status: 'idle',
+    });
+  });
+
+  it('should handle increment', () => {
+    const actual = counterReducer(initialState, increment());
+    expect(actual.value).toEqual(4);
+  });
+
+  it('should handle decrement', () => {
+    const actual = counterReducer(initialState, decrement());
+    expect(actual.value).toEqual(2);
+  });
+
+  it('should handle incrementByAmount', () => {
+    const actual = counterReducer(initialState, incrementByAmount(2));
+    expect(actual.value).toEqual(5);
+  });
+});
+
+///////////////////
